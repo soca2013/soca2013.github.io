@@ -84,11 +84,35 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>##可见性<br>可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改</p>
+<p>##有序性</p>
+<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉</p>
+<p>##一致性<br>一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的</p>
+<p>#JAVA中的可见性<br>java内存模型</p>
+<p>![<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#JAVA中的原子性</span><br><span class="line">##字段的原子性</span><br><span class="line">java代码中字段的原子性依赖于CAS操作（CAS即：Compare and Swap,是比较并交换的意思），主要的原子类在java.util.concurrent.atomic 包中，主要包括的类如下：AtomicInteger，AtomicBoolean，AtomicLong。</span><br><span class="line"></span><br><span class="line">##CAS 简介</span><br><span class="line">CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</span><br><span class="line"></span><br><span class="line">可以拿AtomicInteger看看是怎么实现的。</span><br><span class="line"></span><br><span class="line">`private volatile int value;`</span><br><span class="line"></span><br><span class="line">首先在定义了一个volatile 的变量，保证数据是线程可以见的（下面介绍可见性）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```   </span><br><span class="line">public final boolean compareAndSet(int expect, int update) &#123;</span><br><span class="line">        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>valueOffset 为内置偏移量，主要是为了获取value，expect是比较值，update为更新值，这命令在CPU上是原子性的。</p>
+<p>在JDK7中 incrementAndGet 如下（在jdk 8中该方法变成native方法，主要是为了提升性能）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public final int incrementAndGet() &#123;</span><br><span class="line">    for (;;) &#123;</span><br><span class="line">        int current = get();</span><br><span class="line">        int next = current + 1;</span><br><span class="line">        if (compareAndSet(current, next))</span><br><span class="line">            return next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以发现是通过自旋和compareAndSet方式达到i++的效果，其中value 属性volatile ，可以保证在多线程的情况下，线程可见，从而保证i++的准确性。</p>
+<p>##代码块的原子性<br>代码块的原子性主要依赖于锁来实现。</p>
+<p>###synchronized<br>synchronized关键字最主要有以下3种应用方式，下面分别介绍</p>
+<ul>
+<li>修饰实例方法，作用于当前实例加锁，进入同步代码前要获得当前实例的锁</li>
+<li>修饰静态方法，作用于当前类对象加锁，进入同步代码前要获得当前类对象的锁</li>
+<li>修饰代码块，指定加锁对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁。</li>
+</ul>
+<ol>
+<li>修饰实例方法</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public synchronized void increase()&#123;</span><br><span class="line">       i++;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>  如果方法</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://soca2013.github.io/2019/08/08/原子性与一致性/" data-id="cjz284eqe0000bey7s5y85xzo" class="article-share-link">Share</a>
+      <a data-url="https://soca2013.github.io/2019/08/08/原子性与一致性/" data-id="cjz2foqob0001q2y7j5arffql" class="article-share-link">Share</a>
       
       
     </footer>
@@ -137,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://soca2013.github.io/2019/08/08/hello-world/" data-id="cjz284eql0001bey7brwekezj" class="article-share-link">Share</a>
+      <a data-url="https://soca2013.github.io/2019/08/08/hello-world/" data-id="cjz2foqo50000q2y7b8m9lq2v" class="article-share-link">Share</a>
       
       
     </footer>
