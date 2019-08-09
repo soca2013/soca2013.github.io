@@ -5,19 +5,23 @@
   
 
   
-  <title>原子性与一致性 | 青龙</title>
+  <title>青龙</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基本概念##可见性可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改 ##有序性 原子性原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉 ##一致性一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的 #JAVA中的可见性java内存模型 ![12345678910111213141516171819202122#JA">
+  <meta name="description" content="基本概念可见性可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改 有序性原子性原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉 ##一致性一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的 #JAVA中的可见性java内存模型 大家都知道，计算机在执行程序时，每条指令都是在CPU中执行的，而执行指令过程中，势必涉及到">
 <meta property="og:type" content="article">
-<meta property="og:title" content="原子性与一致性">
+<meta property="og:title" content="青龙">
 <meta property="og:url" content="https://soca2013.github.io/2019/08/08/原子性与一致性/index.html">
 <meta property="og:site_name" content="青龙">
-<meta property="og:description" content="基本概念##可见性可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改 ##有序性 原子性原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉 ##一致性一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的 #JAVA中的可见性java内存模型 ![12345678910111213141516171819202122#JA">
+<meta property="og:description" content="基本概念可见性可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改 有序性原子性原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉 ##一致性一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的 #JAVA中的可见性java内存模型 大家都知道，计算机在执行程序时，每条指令都是在CPU中执行的，而执行指令过程中，势必涉及到">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-08-08T08:38:09.401Z">
+<meta property="og:image" content="https://soca2013.github.io/images/volitale.jpg">
+<meta property="og:image" content="https://soca2013.github.io/images/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B1.jpg">
+<meta property="og:image" content="https://soca2013.github.io/images/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B2.jpg">
+<meta property="og:updated_time" content="2019-08-08T11:06:15.422Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="原子性与一致性">
-<meta name="twitter:description" content="基本概念##可见性可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改 ##有序性 原子性原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉 ##一致性一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的 #JAVA中的可见性java内存模型 ![12345678910111213141516171819202122#JA">
+<meta name="twitter:title" content="青龙">
+<meta name="twitter:description" content="基本概念可见性可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改 有序性原子性原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉 ##一致性一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的 #JAVA中的可见性java内存模型 大家都知道，计算机在执行程序时，每条指令都是在CPU中执行的，而执行指令过程中，势必涉及到">
+<meta name="twitter:image" content="https://soca2013.github.io/images/volitale.jpg">
   
     <link rel="alternate" href="/atom.xml" title="青龙" type="application/atom+xml">
   
@@ -67,31 +71,48 @@
         <section id="main"><article id="post-原子性与一致性" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/08/08/原子性与一致性/" class="article-date">
-  <time datetime="2019-08-08T05:09:12.000Z" itemprop="datePublished">2019-08-08</time>
+  <time datetime="2019-08-08T08:24:55.284Z" itemprop="datePublished">2019-08-08</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      原子性与一致性
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>##可见性<br>可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改</p>
-<p>##有序性</p>
-<h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉</p>
+        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>可见性是指当一个线程修改了共享变量后，其他线程能够立即得知这个修改</p>
+<h2 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h2><h2 id="原子性"><a href="#原子性" class="headerlink" title="原子性"></a>原子性</h2><p>原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败，有着“同生共死”的感觉</p>
 <p>##一致性<br>一致性就是数据保持一致，在分布式系统中，可以理解为多个节点中数据的值是一致的</p>
 <p>#JAVA中的可见性<br>java内存模型</p>
-<p>![<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#JAVA中的原子性</span><br><span class="line">##字段的原子性</span><br><span class="line">java代码中字段的原子性依赖于CAS操作（CAS即：Compare and Swap,是比较并交换的意思），主要的原子类在java.util.concurrent.atomic 包中，主要包括的类如下：AtomicInteger，AtomicBoolean，AtomicLong。</span><br><span class="line"></span><br><span class="line">##CAS 简介</span><br><span class="line">CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</span><br><span class="line"></span><br><span class="line">可以拿AtomicInteger看看是怎么实现的。</span><br><span class="line"></span><br><span class="line">`private volatile int value;`</span><br><span class="line"></span><br><span class="line">首先在定义了一个volatile 的变量，保证数据是线程可以见的（下面介绍可见性）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```   </span><br><span class="line">public final boolean compareAndSet(int expect, int update) &#123;</span><br><span class="line">        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>大家都知道，计算机在执行程序时，每条指令都是在CPU中执行的，而执行指令过程中，势必涉及到数据的读取和写入。由于程序运行过程中的临时数据是存放在主存（物理内存）当中的，这时就存在一个问题，由于CPU执行速度很快，而从内存读取数据和向内存写入数据的过程跟CPU执行指令的速度比起来要慢的多，因此如果任何时候对数据的操作都要通过和内存的交互来进行，会大大降低指令执行的速度。因此在CPU里面就有了高速缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public  static  boolean stop=false;</span><br><span class="line"></span><br><span class="line">public static void main(String[] args) throws InterruptedException &#123;</span><br><span class="line">    Test test=new Test();</span><br><span class="line">    new Thread(new Runnable() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            System.out.println(&quot; 开始运行 &quot;);</span><br><span class="line">            while (!stop)&#123;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(&quot; 任务停止&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line"></span><br><span class="line">    Thread.sleep(2000);</span><br><span class="line">    new Thread(new Runnable() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void run() &#123;</span><br><span class="line">            System.out.println(&quot; 准备停止 &quot;);</span><br><span class="line">            stop= true;</span><br><span class="line">            System.out.println(&quot; 停止完成 &quot;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;).start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果（任务一直不结束） 如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">开始运行 </span><br><span class="line">准备停止 </span><br><span class="line">停止完成</span><br></pre></td></tr></table></figure>
+
+<p>java 内存模型</p>
+<p><img src="/images/volitale.jpg" alt></p>
+<ul>
+<li>第一步<br><img src="/images/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B1.jpg" alt></li>
+</ul>
+<p>线程1和线程2同时从主存中读取变量stop，工作内存中stop=false</p>
+<ul>
+<li>第二步<br><img src="/images/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B2.jpg" alt><br>线程2 操作stop=true，并会写入 主内存中，这时，线程1不知道主内存中数据有变更，依然从工作内存中读取stop为false，</li>
+</ul>
+<p>如果我在stop 变量前面加上volatile 修饰，结果（任务正常结束）如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">开始运行 </span><br><span class="line">准备停止 </span><br><span class="line">停止完成 </span><br><span class="line">任务停止</span><br></pre></td></tr></table></figure>
+
+<p>原因：在变量用volatile修饰之后，当变量有修改时，通过缓存一致性协议，通知相关的线程变量已经修改，使工作内存中变量无效。</p>
+<p>volatile 不能保证 变量的原子性，因为volatile只起到通知作用。</p>
+<p>可参考：<br><a href="https://www.ibm.com/developerworks/cn/java/j-jtp06197.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-jtp06197.html</a><br><a href="https://www.cnblogs.com/dolphin0520/p/3920373.html" target="_blank" rel="noopener">https://www.cnblogs.com/dolphin0520/p/3920373.html</a></p>
+<p>#JAVA中的原子性</p>
+<p>##字段的原子性<br>java代码中字段的原子性依赖于CAS操作（CAS即：Compare and Swap,是比较并交换的意思），主要的原子类在java.util.concurrent.atomic 包中，主要包括的类如下：AtomicInteger，AtomicBoolean，AtomicLong。</p>
+<p>##CAS 简介<br>CAS有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做。</p>
+<p>可以拿AtomicInteger看看是怎么实现的。</p>
+<p><code>private volatile int value;</code></p>
+<p>首先在定义了一个volatile 的变量，保证数据是线程可以见的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public final boolean compareAndSet(int expect, int update) &#123;</span><br><span class="line">        return unsafe.compareAndSwapInt(this, valueOffset, expect, update);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>valueOffset 为内置偏移量，主要是为了获取value，expect是比较值，update为更新值，这命令在CPU上是原子性的。</p>
 <p>在JDK7中 incrementAndGet 如下（在jdk 8中该方法变成native方法，主要是为了提升性能）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public final int incrementAndGet() &#123;</span><br><span class="line">    for (;;) &#123;</span><br><span class="line">        int current = get();</span><br><span class="line">        int next = current + 1;</span><br><span class="line">        if (compareAndSet(current, next))</span><br><span class="line">            return next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -114,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://soca2013.github.io/2019/08/08/原子性与一致性/" data-id="cjz2foqob0001q2y7j5arffql" class="article-share-link">Share</a>
+      <a data-url="https://soca2013.github.io/2019/08/08/原子性与一致性/" data-id="cjz3g1t7a0001iqxbt9a01fzh" class="article-share-link">Share</a>
       
       
     </footer>
@@ -163,7 +184,7 @@
       <ul>
         
           <li>
-            <a href="/2019/08/08/原子性与一致性/">原子性与一致性</a>
+            <a href="/2019/08/08/原子性与一致性/">(no title)</a>
           </li>
         
           <li>
